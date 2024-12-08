@@ -419,9 +419,28 @@ function rotateMatrix(matrix) {
   }
 }
 
+const quickSort = (arr2, start, end) => {
+  const arr = arr2;
+  if (start < end) {
+    const pivot = arr[end];
+    let pi = start;
+
+    for (let j = start; j <= end - 1; j += 1) {
+      if (arr[j] <= pivot) {
+        [arr[pi], arr[j]] = [arr[j], arr[pi]];
+        pi += 1;
+      }
+    }
+
+    [arr[pi], arr[end]] = [arr[end], arr[pi]];
+
+    quickSort(arr, start, pi - 1);
+    quickSort(arr, pi + 1, end);
+  }
+};
 /**
  * Sorts an array of numbers in ascending order in place.
- * Employ any sorting algorithm of your choice.
+ * u.
  * Take into account that the array can be very large. Consider how you can optimize your solution.
  * In this task, the use of methods of the Array and String classes is not allowed.
  *
@@ -433,8 +452,8 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  quickSort(arr, 0, arr.length - 1);
 }
 
 /**
