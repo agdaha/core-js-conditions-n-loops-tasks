@@ -419,25 +419,6 @@ function rotateMatrix(matrix) {
   }
 }
 
-const quickSort = (arr2, start, end) => {
-  const arr = arr2;
-  if (start < end) {
-    const pivot = arr[end];
-    let pi = start;
-
-    for (let j = start; j <= end - 1; j += 1) {
-      if (arr[j] <= pivot) {
-        [arr[pi], arr[j]] = [arr[j], arr[pi]];
-        pi += 1;
-      }
-    }
-
-    [arr[pi], arr[end]] = [arr[end], arr[pi]];
-
-    quickSort(arr, start, pi - 1);
-    quickSort(arr, pi + 1, end);
-  }
-};
 /**
  * Sorts an array of numbers in ascending order in place.
  * u.
@@ -453,6 +434,25 @@ const quickSort = (arr2, start, end) => {
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
 function sortByAsc(arr) {
+  function quickSort(arr2, start, end) {
+    const arrP = arr2;
+    if (start < end) {
+      const pivot = arrP[end];
+      let pi = start;
+
+      for (let j = start; j <= end - 1; j += 1) {
+        if (arrP[j] <= pivot) {
+          [arrP[pi], arrP[j]] = [arrP[j], arrP[pi]];
+          pi += 1;
+        }
+      }
+
+      [arrP[pi], arrP[end]] = [arrP[end], arrP[pi]];
+
+      quickSort(arrP, start, pi - 1);
+      quickSort(arrP, pi + 1, end);
+    }
+  }
   quickSort(arr, 0, arr.length - 1);
 }
 
@@ -473,8 +473,24 @@ function sortByAsc(arr) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let chars = str.split('');
+  for (let cnt = 0; cnt < iterations; cnt += 1) {
+    const newChars = [];
+    for (let i = 0, l = str.length; i < l; i += 1) {
+      if (i % 2 === 0) {
+        newChars[i / 2] = chars[i];
+      } else {
+        newChars[Math.trunc(l / 2) + Math.trunc(i / 2)] = chars[i];
+      }
+    }
+    chars = newChars;
+  }
+  let ret = '';
+  for (let i = 0, l = str.length; i < l; i += 1) {
+    ret += chars[i];
+  }
+  return ret;
 }
 
 /**
